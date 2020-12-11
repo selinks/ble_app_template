@@ -82,9 +82,13 @@
 #include "nrf_log_ctrl.h"
 #include "nrf_log_default_backends.h"
 
+#include "ble_nus.h"
 
 #define DEVICE_NAME                     "MS88SF2"                       /**< Name of device. Will be included in the advertising data. */
 #define MANUFACTURER_NAME               "NordicSemiconductor"                   /**< Manufacturer. Will be passed to Device Information Service. */
+
+#define NUS_SERVICE_UUID_TYPE           BLE_UUID_TYPE_VENDOR_BEGIN              /**< UUID type for the Nordic UART Service (vendor specific). */
+
 #define APP_ADV_INTERVAL                300                                     /**< The advertising interval (in units of 0.625 ms. This value corresponds to 187.5 ms). */
 
 #define APP_ADV_DURATION                0//18000                                /**< The advertising duration (180 seconds) in units of 10 milliseconds. */
@@ -116,6 +120,8 @@ NRF_BLE_GATT_DEF(m_gatt);                                                       
 NRF_BLE_QWR_DEF(m_qwr);                                                         /**< Context for the Queued Write module.*/
 BLE_ADVERTISING_DEF(m_advertising);                                             /**< Advertising module instance. */
 
+BLE_NUS_DEF(m_nus, NRF_SDH_BLE_TOTAL_LINK_COUNT);
+
 static uint16_t m_conn_handle = BLE_CONN_HANDLE_INVALID;                        /**< Handle of the current connection. */
 
 /* YOUR_JOB: Declare all services structure your application is using
@@ -125,7 +131,8 @@ static uint16_t m_conn_handle = BLE_CONN_HANDLE_INVALID;                        
 // YOUR_JOB: Use UUIDs for service(s) used in your application.
 static ble_uuid_t m_adv_uuids[] =                                               /**< Universally unique service identifiers. */
 {
-    {BLE_UUID_DEVICE_INFORMATION_SERVICE, BLE_UUID_TYPE_BLE}
+    //{BLE_UUID_DEVICE_INFORMATION_SERVICE, BLE_UUID_TYPE_BLE}, {BLE_UUID_NUS_SERVICE, NUS_SERVICE_UUID_TYPE},
+    {BLE_UUID_NUS_SERVICE, NUS_SERVICE_UUID_TYPE}
 };
 
 
@@ -274,6 +281,76 @@ static void on_yys_evt(ble_yy_service_t     * p_yy_service,
 }
 */
 
+
+static void nus_data_handler(ble_nus_evt_t * p_evt)
+{
+    uint32_t err_code;
+    uint16_t len = 1;
+    bool cr_flag = false;
+    uint8_t lf = '\n';
+    uint8_t gt = '>';
+        
+    if (p_evt->type == BLE_NUS_EVT_RX_DATA)
+    {
+        NRF_LOG_DEBUG("Received data from BLE NUS.");
+        NRF_LOG_HEXDUMP_DEBUG(p_evt->params.rx_data.p_data, p_evt->params.rx_data.length);
+        NRF_LOG_DEBUG("Ready to send data over BLE NUS");
+
+        if (p_evt->params.rx_data.p_data[p_evt->params.rx_data.length - 1] == '\r')
+        {
+            cr_flag = true;
+        }
+
+        do
+        {
+            err_code = ble_nus_data_send(&m_nus, (uint8_t *) p_evt->params.rx_data.p_data, & p_evt->params.rx_data.length, m_conn_handle);
+            if ((err_code != NRF_ERROR_INVALID_STATE) &&
+                (err_code != NRF_ERROR_RESOURCES) &&
+                (err_code != NRF_ERROR_NOT_FOUND))
+            {
+                APP_ERROR_CHECK(err_code);
+            }
+        } while (err_code == NRF_ERROR_RESOURCES);
+
+        if (cr_flag)
+        {
+            do
+            {
+                err_code = ble_nus_data_send(&m_nus, &lf, &len, m_conn_handle);
+                if ((err_code != NRF_ERROR_INVALID_STATE) &&
+                    (err_code != NRF_ERROR_RESOURCES) &&
+                    (err_code != NRF_ERROR_NOT_FOUND))
+                {
+                    APP_ERROR_CHECK(err_code);
+                }
+            } while (err_code == NRF_ERROR_RESOURCES);
+            cr_flag = false;
+            do
+            {
+                err_code = ble_nus_data_send(&m_nus, &gt, &len, m_conn_handle);
+                if ((err_code != NRF_ERROR_INVALID_STATE) &&
+                    (err_code != NRF_ERROR_RESOURCES) &&
+                    (err_code != NRF_ERROR_NOT_FOUND))
+                {
+                    APP_ERROR_CHECK(err_code);
+                }
+            } while (err_code == NRF_ERROR_RESOURCES);
+        }
+
+        if(memcmp(p_evt->params.rx_data.p_data, "disconnect", sizeof("disconnect")) == 0)
+        {
+	    NRF_LOG_DEBUG("Received data: \"disconnect\".");
+            sd_ble_gap_disconnect(p_evt->conn_handle, BLE_HCI_REMOTE_USER_TERMINATED_CONNECTION);
+	}
+        if(memcmp(p_evt->params.rx_data.p_data, "LED", sizeof("LED")) == 0)
+        {
+            NRF_LOG_DEBUG("Received data: \"LED\".");
+            bsp_board_led_invert(BSP_BOARD_LED_3);
+        }
+    }
+}
+
+
 /**@brief Function for initializing services that will be used by the application.
  */
 static void services_init(void)
@@ -281,10 +358,20 @@ static void services_init(void)
     ret_code_t         err_code;
     nrf_ble_qwr_init_t qwr_init = {0};
 
+    ble_nus_init_t nus_init;
+
     // Initialize Queued Write Module.
     qwr_init.error_handler = nrf_qwr_error_handler;
 
     err_code = nrf_ble_qwr_init(&m_qwr, &qwr_init);
+    APP_ERROR_CHECK(err_code);
+
+    // Initialize NUS.
+    memset(&nus_init, 0, sizeof(nus_init));
+
+    nus_init.data_handler = nus_data_handler;
+
+    err_code = ble_nus_init(&m_nus, &nus_init);
     APP_ERROR_CHECK(err_code);
 
     /* YOUR_JOB: Add code to initialize the services used by the application.
@@ -611,10 +698,11 @@ static void advertising_init(void)
     memset(&init, 0, sizeof(init));
 
     init.advdata.name_type               = BLE_ADVDATA_FULL_NAME;
-    init.advdata.include_appearance      = true;
+    init.advdata.include_appearance      = false;
     init.advdata.flags                   = BLE_GAP_ADV_FLAGS_LE_ONLY_GENERAL_DISC_MODE;
-    init.advdata.uuids_complete.uuid_cnt = sizeof(m_adv_uuids) / sizeof(m_adv_uuids[0]);
-    init.advdata.uuids_complete.p_uuids  = m_adv_uuids;
+
+    init.srdata.uuids_complete.uuid_cnt = sizeof(m_adv_uuids) / sizeof(m_adv_uuids[0]);
+    init.srdata.uuids_complete.p_uuids  = m_adv_uuids;
 
     init.config.ble_adv_fast_enabled  = true;
     init.config.ble_adv_fast_interval = APP_ADV_INTERVAL;
