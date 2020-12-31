@@ -1,1 +1,1 @@
-# ble_app_template2
+# ble_app_template
