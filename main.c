@@ -71,7 +71,6 @@
 #include "ble_conn_state.h"
 #include "nrf_ble_gatt.h"
 #include "nrf_ble_qwr.h"
-#include "nrf_pwr_mgmt.h"
 #include "ble_nus.h"
 
 #include "nrf_log.h"
@@ -426,20 +425,6 @@ static void application_timers_start(void)
 }
 
 
-/**@brief Function for putting the chip into sleep mode.
- *
- * @note This function will not return.
- */
-static void sleep_mode_enter(void)
-{
-    ret_code_t err_code;
-
-    // Go to system-off mode (this function will not return; wakeup will cause a reset).
-    err_code = sd_power_system_off();
-    APP_ERROR_CHECK(err_code);
-}
-
-
 /**@brief Function for handling advertising events.
  *
  * @details This function will be called for advertising events which are passed to the application.
@@ -457,7 +442,7 @@ static void on_adv_evt(ble_adv_evt_t ble_adv_evt)
             break;
 
         case BLE_ADV_EVT_IDLE:
-            sleep_mode_enter();
+            //sleep_mode_enter();
             break;
 
         default:
@@ -593,29 +578,6 @@ static void log_init(void)
 }
 
 
-/**@brief Function for initializing power management.
- */
-static void power_management_init(void)
-{
-    ret_code_t err_code;
-    err_code = nrf_pwr_mgmt_init();
-    APP_ERROR_CHECK(err_code);
-}
-
-
-/**@brief Function for handling the idle state (main loop).
- *
- * @details If there is no pending log operation, then sleep until next the next event occurs.
- */
-static void idle_state_handle(void)
-{
-    if (NRF_LOG_PROCESS() == false)
-    {
-        nrf_pwr_mgmt_run();
-    }
-}
-
-
 /**@brief Function for starting advertising.
  */
 static void advertising_start()
@@ -667,7 +629,6 @@ int main(void)
     // Initialize.
     log_init();
     timers_init();
-    power_management_init();
     ble_stack_init();
     gap_params_init();
     gatt_init();
@@ -684,7 +645,17 @@ int main(void)
     // Enter main loop.
     for (;;)
     {
-        idle_state_handle();
+        /*
+        * Clear FPU exceptions.
+        * Without this step, the FPU interrupt is marked as pending,
+        * preventing system from sleeping.
+        */
+        uint32_t fpscr = __get_FPSCR();
+        __set_FPSCR(fpscr & ~0x9Fu);
+        __DMB();
+        NVIC_ClearPendingIRQ(FPU_IRQn);
+
+        sd_app_evt_wait(); // Go to sleep, wait to be woken up
     }
 }
 

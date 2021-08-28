@@ -77,7 +77,6 @@
         <configuration Name="Debug" build_exclude_from_build="No" />
       </file>
       <file file_name="../../../MDBT42Q/nordicsemi.com/nRF5_SDK_17.0.2_d674dde/components/libraries/strerror/nrf_strerror.c" />
-      <file file_name="../../../MDBT42Q/nordicsemi.com/nRF5_SDK_17.0.2_d674dde/components/libraries/pwr_mgmt/nrf_pwr_mgmt.c" />
       <file file_name="../../../MDBT42Q/nordicsemi.com/nRF5_SDK_17.0.2_d674dde/components/libraries/hardfault/nrf52/handler/hardfault_handler_gcc.c" />
     </folder>
     <folder Name="mdk">
