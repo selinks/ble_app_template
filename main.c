@@ -175,12 +175,12 @@ static void nus_data_handler(ble_nus_evt_t * p_evt)
             } while (err_code == NRF_ERROR_RESOURCES);
         }
 
-        if(memcmp(p_evt->params.rx_data.p_data, "exit", sizeof("exit")) == 0)
+        if(memcmp(p_evt->params.rx_data.p_data, "exit\n", sizeof("exit\n")) == 0)
         {
 	    NRF_LOG_DEBUG("Received data: \"exit\".");
             sd_ble_gap_disconnect(p_evt->conn_handle, BLE_HCI_REMOTE_USER_TERMINATED_CONNECTION);
 	}
-        if(memcmp(p_evt->params.rx_data.p_data, "command", sizeof("command")) == 0)
+        if(memcmp(p_evt->params.rx_data.p_data, "command\n", sizeof("command\n")) == 0)
         {
             NRF_LOG_DEBUG("Received data: \"command\".");
         }
@@ -454,7 +454,6 @@ static void on_adv_evt(ble_adv_evt_t ble_adv_evt)
     {
         case BLE_ADV_EVT_FAST:
             NRF_LOG_INFO("Fast advertising.");
-            APP_ERROR_CHECK(err_code);
             break;
 
         case BLE_ADV_EVT_IDLE:

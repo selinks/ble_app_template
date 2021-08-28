@@ -624,7 +624,7 @@
 // <e> NRF_CRYPTO_ENABLED - nrf_crypto - Cryptography library.
 //==========================================================
 #ifndef NRF_CRYPTO_ENABLED
-#define NRF_CRYPTO_ENABLED 1
+#define NRF_CRYPTO_ENABLED 0
 #endif
 // <o> NRF_CRYPTO_ALLOCATOR  - Memory allocator
  
@@ -6155,7 +6155,7 @@
 // <e> APP_SCHEDULER_ENABLED - app_scheduler - Events scheduler
 //==========================================================
 #ifndef APP_SCHEDULER_ENABLED
-#define APP_SCHEDULER_ENABLED 1
+#define APP_SCHEDULER_ENABLED 0
 #endif
 // <q> APP_SCHEDULER_WITH_PAUSE  - Enabling pause feature
  
@@ -6651,7 +6651,7 @@
  
 
 #ifndef CRC16_ENABLED
-#define CRC16_ENABLED 1
+#define CRC16_ENABLED 0
 #endif
 
 // <q> CRC32_ENABLED  - crc32 - CRC32 calculation routines
@@ -6789,7 +6789,7 @@
  
 
 #ifndef HARDFAULT_HANDLER_ENABLED
-#define HARDFAULT_HANDLER_ENABLED 0
+#define HARDFAULT_HANDLER_ENABLED 1
 #endif
 
 // <e> HCI_MEM_POOL_ENABLED - hci_mem_pool - memory pool implementation used by HCI
@@ -7070,7 +7070,7 @@
 // <e> NRF_BALLOC_CONFIG_DEBUG_ENABLED - Enables debug mode in the module.
 //==========================================================
 #ifndef NRF_BALLOC_CONFIG_DEBUG_ENABLED
-#define NRF_BALLOC_CONFIG_DEBUG_ENABLED 0
+#define NRF_BALLOC_CONFIG_DEBUG_ENABLED 1
 #endif
 // <o> NRF_BALLOC_CONFIG_HEAD_GUARD_WORDS - Number of words used as head guard.  <0-255> 
 
@@ -7389,7 +7389,7 @@
 // <e> NRF_QUEUE_ENABLED - nrf_queue - Queue module
 //==========================================================
 #ifndef NRF_QUEUE_ENABLED
-#define NRF_QUEUE_ENABLED 0
+#define NRF_QUEUE_ENABLED 1
 #endif
 // <q> NRF_QUEUE_CLI_CMDS  - Enable CLI commands specific to the module
  
@@ -8213,7 +8213,7 @@
 // <e> GPIOTE_CONFIG_LOG_ENABLED - Enables logging in the module.
 //==========================================================
 #ifndef GPIOTE_CONFIG_LOG_ENABLED
-#define GPIOTE_CONFIG_LOG_ENABLED 1
+#define GPIOTE_CONFIG_LOG_ENABLED 0
 #endif
 // <o> GPIOTE_CONFIG_LOG_LEVEL  - Default Severity level
  
@@ -9195,7 +9195,7 @@
 // <e> APP_BUTTON_CONFIG_LOG_ENABLED - Enables logging in the module.
 //==========================================================
 #ifndef APP_BUTTON_CONFIG_LOG_ENABLED
-#define APP_BUTTON_CONFIG_LOG_ENABLED 1
+#define APP_BUTTON_CONFIG_LOG_ENABLED 0
 #endif
 // <o> APP_BUTTON_CONFIG_LOG_LEVEL  - Default Severity level
  
@@ -10476,7 +10476,7 @@
 // <e> NRF_SORTLIST_CONFIG_LOG_ENABLED - Enables logging in the module.
 //==========================================================
 #ifndef NRF_SORTLIST_CONFIG_LOG_ENABLED
-#define NRF_SORTLIST_CONFIG_LOG_ENABLED 0
+#define NRF_SORTLIST_CONFIG_LOG_ENABLED 1
 #endif
 // <o> NRF_SORTLIST_CONFIG_LOG_LEVEL  - Default Severity level
  
@@ -10578,7 +10578,7 @@
 // <e> PM_LOG_ENABLED - Enable logging in Peer Manager and its submodules.
 //==========================================================
 #ifndef PM_LOG_ENABLED
-#define PM_LOG_ENABLED 1
+#define PM_LOG_ENABLED 0
 #endif
 // <o> PM_LOG_LEVEL  - Default Severity level
  
