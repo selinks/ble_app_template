@@ -792,6 +792,10 @@ int main(void)
 {
     bool erase_bonds;
 
+    #if CONFIG_JLINK_MONITOR_ENABLED
+    NVIC_SetPriority(DebugMonitor_IRQn, _PRIO_SD_LOW);
+    #endif
+
     // Initialize.
     log_init();
     timers_init();
