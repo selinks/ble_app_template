@@ -4434,7 +4434,7 @@
 // <e> NRFX_UARTE_ENABLED - nrfx_uarte - UARTE peripheral driver
 //==========================================================
 #ifndef NRFX_UARTE_ENABLED
-#define NRFX_UARTE_ENABLED 1
+#define NRFX_UARTE_ENABLED 0
 #endif
 // <o> NRFX_UARTE0_ENABLED - Enable UARTE0 instance 
 #ifndef NRFX_UARTE0_ENABLED
@@ -4560,7 +4560,7 @@
 // <e> NRFX_UART_ENABLED - nrfx_uart - UART peripheral driver
 //==========================================================
 #ifndef NRFX_UART_ENABLED
-#define NRFX_UART_ENABLED 1
+#define NRFX_UART_ENABLED 0
 #endif
 // <o> NRFX_UART0_ENABLED - Enable UART0 instance 
 #ifndef NRFX_UART0_ENABLED
@@ -7644,7 +7644,7 @@
  
 
 #ifndef NRF_FPRINTF_FLAG_AUTOMATIC_CR_ON_LF_ENABLED
-#define NRF_FPRINTF_FLAG_AUTOMATIC_CR_ON_LF_ENABLED 1
+#define NRF_FPRINTF_FLAG_AUTOMATIC_CR_ON_LF_ENABLED 0
 #endif
 
 // <q> NRF_FPRINTF_DOUBLE_ENABLED  - Enable IEEE-754 double precision formatting.
@@ -7666,7 +7666,7 @@
 // <e> NRF_LOG_BACKEND_RTT_ENABLED - nrf_log_backend_rtt - Log RTT backend
 //==========================================================
 #ifndef NRF_LOG_BACKEND_RTT_ENABLED
-#define NRF_LOG_BACKEND_RTT_ENABLED 0
+#define NRF_LOG_BACKEND_RTT_ENABLED 1
 #endif
 // <o> NRF_LOG_BACKEND_RTT_TEMP_BUFFER_SIZE - Size of buffer for partially processed strings. 
 // <i> Size of the buffer is a trade-off between RAM usage and processing.
@@ -7699,7 +7699,7 @@
 // <e> NRF_LOG_BACKEND_UART_ENABLED - nrf_log_backend_uart - Log UART backend
 //==========================================================
 #ifndef NRF_LOG_BACKEND_UART_ENABLED
-#define NRF_LOG_BACKEND_UART_ENABLED 1
+#define NRF_LOG_BACKEND_UART_ENABLED 0
 #endif
 // <o> NRF_LOG_BACKEND_UART_TX_PIN - UART TX pin 
 #ifndef NRF_LOG_BACKEND_UART_TX_PIN
@@ -7816,7 +7816,7 @@
 // <4=> Debug 
 
 #ifndef NRF_LOG_DEFAULT_LEVEL
-#define NRF_LOG_DEFAULT_LEVEL 3
+#define NRF_LOG_DEFAULT_LEVEL 4
 #endif
 
 // <q> NRF_LOG_DEFERRED  - Enable deffered logger.
@@ -7952,7 +7952,7 @@
 // <e> NRF_MPU_LIB_CONFIG_LOG_ENABLED - Enables logging in the module.
 //==========================================================
 #ifndef NRF_MPU_LIB_CONFIG_LOG_ENABLED
-#define NRF_MPU_LIB_CONFIG_LOG_ENABLED 0
+#define NRF_MPU_LIB_CONFIG_LOG_ENABLED 1
 #endif
 // <o> NRF_MPU_LIB_CONFIG_LOG_LEVEL  - Default Severity level
  
@@ -8003,7 +8003,7 @@
 // <e> NRF_STACK_GUARD_CONFIG_LOG_ENABLED - Enables logging in the module.
 //==========================================================
 #ifndef NRF_STACK_GUARD_CONFIG_LOG_ENABLED
-#define NRF_STACK_GUARD_CONFIG_LOG_ENABLED 0
+#define NRF_STACK_GUARD_CONFIG_LOG_ENABLED 1
 #endif
 // <o> NRF_STACK_GUARD_CONFIG_LOG_LEVEL  - Default Severity level
  
@@ -8054,7 +8054,7 @@
 // <e> TASK_MANAGER_CONFIG_LOG_ENABLED - Enables logging in the module.
 //==========================================================
 #ifndef TASK_MANAGER_CONFIG_LOG_ENABLED
-#define TASK_MANAGER_CONFIG_LOG_ENABLED 0
+#define TASK_MANAGER_CONFIG_LOG_ENABLED 1
 #endif
 // <o> TASK_MANAGER_CONFIG_LOG_LEVEL  - Default Severity level
  
@@ -8111,7 +8111,7 @@
 // <e> CLOCK_CONFIG_LOG_ENABLED - Enables logging in the module.
 //==========================================================
 #ifndef CLOCK_CONFIG_LOG_ENABLED
-#define CLOCK_CONFIG_LOG_ENABLED 0
+#define CLOCK_CONFIG_LOG_ENABLED 1
 #endif
 // <o> CLOCK_CONFIG_LOG_LEVEL  - Default Severity level
  
@@ -8213,7 +8213,7 @@
 // <e> GPIOTE_CONFIG_LOG_ENABLED - Enables logging in the module.
 //==========================================================
 #ifndef GPIOTE_CONFIG_LOG_ENABLED
-#define GPIOTE_CONFIG_LOG_ENABLED 0
+#define GPIOTE_CONFIG_LOG_ENABLED 1
 #endif
 // <o> GPIOTE_CONFIG_LOG_LEVEL  - Default Severity level
  
@@ -8417,7 +8417,7 @@
 // <e> PDM_CONFIG_LOG_ENABLED - Enables logging in the module.
 //==========================================================
 #ifndef PDM_CONFIG_LOG_ENABLED
-#define PDM_CONFIG_LOG_ENABLED 0
+#define PDM_CONFIG_LOG_ENABLED 1
 #endif
 // <o> PDM_CONFIG_LOG_LEVEL  - Default Severity level
  
@@ -8468,7 +8468,7 @@
 // <e> PPI_CONFIG_LOG_ENABLED - Enables logging in the module.
 //==========================================================
 #ifndef PPI_CONFIG_LOG_ENABLED
-#define PPI_CONFIG_LOG_ENABLED 0
+#define PPI_CONFIG_LOG_ENABLED 1
 #endif
 // <o> PPI_CONFIG_LOG_LEVEL  - Default Severity level
  
@@ -8679,7 +8679,7 @@
 // <e> RTC_CONFIG_LOG_ENABLED - Enables logging in the module.
 //==========================================================
 #ifndef RTC_CONFIG_LOG_ENABLED
-#define RTC_CONFIG_LOG_ENABLED 0
+#define RTC_CONFIG_LOG_ENABLED 1
 #endif
 // <o> RTC_CONFIG_LOG_LEVEL  - Default Severity level
  
@@ -8883,7 +8883,7 @@
 // <e> TIMER_CONFIG_LOG_ENABLED - Enables logging in the module.
 //==========================================================
 #ifndef TIMER_CONFIG_LOG_ENABLED
-#define TIMER_CONFIG_LOG_ENABLED 0
+#define TIMER_CONFIG_LOG_ENABLED 1
 #endif
 // <o> TIMER_CONFIG_LOG_LEVEL  - Default Severity level
  
@@ -9195,7 +9195,7 @@
 // <e> APP_BUTTON_CONFIG_LOG_ENABLED - Enables logging in the module.
 //==========================================================
 #ifndef APP_BUTTON_CONFIG_LOG_ENABLED
-#define APP_BUTTON_CONFIG_LOG_ENABLED 0
+#define APP_BUTTON_CONFIG_LOG_ENABLED 1
 #endif
 // <o> APP_BUTTON_CONFIG_LOG_LEVEL  - Default Severity level
  
@@ -9262,7 +9262,7 @@
 // <e> APP_TIMER_CONFIG_LOG_ENABLED - Enables logging in the module.
 //==========================================================
 #ifndef APP_TIMER_CONFIG_LOG_ENABLED
-#define APP_TIMER_CONFIG_LOG_ENABLED 0
+#define APP_TIMER_CONFIG_LOG_ENABLED 1
 #endif
 // <o> APP_TIMER_CONFIG_LOG_LEVEL  - Default Severity level
  
@@ -9647,7 +9647,7 @@
 // <e> NRF_BALLOC_CONFIG_LOG_ENABLED - Enables logging in the module.
 //==========================================================
 #ifndef NRF_BALLOC_CONFIG_LOG_ENABLED
-#define NRF_BALLOC_CONFIG_LOG_ENABLED 0
+#define NRF_BALLOC_CONFIG_LOG_ENABLED 1
 #endif
 // <o> NRF_BALLOC_CONFIG_LOG_LEVEL  - Default Severity level
  
@@ -9903,7 +9903,7 @@
 // <e> NRF_CLI_BLE_UART_CONFIG_LOG_ENABLED - Enables logging in the module.
 //==========================================================
 #ifndef NRF_CLI_BLE_UART_CONFIG_LOG_ENABLED
-#define NRF_CLI_BLE_UART_CONFIG_LOG_ENABLED 0
+#define NRF_CLI_BLE_UART_CONFIG_LOG_ENABLED 1
 #endif
 // <o> NRF_CLI_BLE_UART_CONFIG_LOG_LEVEL  - Default Severity level
  
@@ -10107,7 +10107,7 @@
 // <e> NRF_MEMOBJ_CONFIG_LOG_ENABLED - Enables logging in the module.
 //==========================================================
 #ifndef NRF_MEMOBJ_CONFIG_LOG_ENABLED
-#define NRF_MEMOBJ_CONFIG_LOG_ENABLED 0
+#define NRF_MEMOBJ_CONFIG_LOG_ENABLED 1
 #endif
 // <o> NRF_MEMOBJ_CONFIG_LOG_LEVEL  - Default Severity level
  
@@ -10158,7 +10158,7 @@
 // <e> NRF_PWR_MGMT_CONFIG_LOG_ENABLED - Enables logging in the module.
 //==========================================================
 #ifndef NRF_PWR_MGMT_CONFIG_LOG_ENABLED
-#define NRF_PWR_MGMT_CONFIG_LOG_ENABLED 0
+#define NRF_PWR_MGMT_CONFIG_LOG_ENABLED 1
 #endif
 // <o> NRF_PWR_MGMT_CONFIG_LOG_LEVEL  - Default Severity level
  
@@ -10209,7 +10209,7 @@
 // <e> NRF_QUEUE_CONFIG_LOG_ENABLED - Enables logging in the module.
 //==========================================================
 #ifndef NRF_QUEUE_CONFIG_LOG_ENABLED
-#define NRF_QUEUE_CONFIG_LOG_ENABLED 0
+#define NRF_QUEUE_CONFIG_LOG_ENABLED 1
 #endif
 // <o> NRF_QUEUE_CONFIG_LOG_LEVEL  - Default Severity level
  
@@ -10272,7 +10272,7 @@
 // <e> NRF_SDH_ANT_LOG_ENABLED - Enable logging in SoftDevice handler (ANT) module.
 //==========================================================
 #ifndef NRF_SDH_ANT_LOG_ENABLED
-#define NRF_SDH_ANT_LOG_ENABLED 0
+#define NRF_SDH_ANT_LOG_ENABLED 1
 #endif
 // <o> NRF_SDH_ANT_LOG_LEVEL  - Default Severity level
  
