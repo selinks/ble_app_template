@@ -95,7 +95,9 @@
       <file file_name="../../../MDBT42Q/nordicsemi.com/nRF5_SDK_17.0.2_d674dde/components/libraries/bsp/bsp_btn_ble.c" />
     </folder>
     <folder Name="Application">
-      <file file_name="main.c" />
+      <file file_name="main.c">
+        <configuration Name="Common" build_quietly="No" />
+      </file>
       <file file_name="sdk_config.h" />
     </folder>
     <folder Name="nRF_Segger_RTT">
