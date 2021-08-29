@@ -113,9 +113,6 @@
       <file file_name="../../../MDBT42Q/nordicsemi.com/nRF5_SDK_17.0.2_d674dde/components/ble/ble_link_ctx_manager/ble_link_ctx_manager.c" />
       <file file_name="../../../MDBT42Q/nordicsemi.com/nRF5_SDK_17.0.2_d674dde/components/ble/ble_services/ble_nus/ble_nus.c" />
     </folder>
-    <folder Name="UTF8/UTF16 converter">
-      <file file_name="../../../MDBT42Q/nordicsemi.com/nRF5_SDK_17.0.2_d674dde/external/utf_converter/utf.c" />
-    </folder>
     <folder Name="nRF_SoftDevice">
       <file file_name="../../../MDBT42Q/nordicsemi.com/nRF5_SDK_17.0.2_d674dde/components/softdevice/common/nrf_sdh.c" />
       <file file_name="../../../MDBT42Q/nordicsemi.com/nRF5_SDK_17.0.2_d674dde/components/softdevice/common/nrf_sdh_ble.c" />

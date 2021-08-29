@@ -442,6 +442,7 @@ static void on_adv_evt(ble_adv_evt_t ble_adv_evt)
             break;
 
         case BLE_ADV_EVT_IDLE:
+            NRF_LOG_INFO("Idle advertising. TODO: sleep mode enter.");
             //sleep_mode_enter();
             break;
 
@@ -616,12 +617,14 @@ static void gpio_output_voltage_setup(void)
  */
 int main(void)
 {
+    uint32_t err_code;
+    
     if (NRF_POWER->MAINREGSTATUS &
        (POWER_MAINREGSTATUS_MAINREGSTATUS_High << POWER_MAINREGSTATUS_MAINREGSTATUS_Pos))
     {
         gpio_output_voltage_setup();
     }
-    
+
     #if CONFIG_JLINK_MONITOR_ENABLED
     NVIC_SetPriority(DebugMonitor_IRQn, _PRIO_SD_LOW);
     #endif
@@ -630,6 +633,10 @@ int main(void)
     log_init();
     timers_init();
     ble_stack_init();
+
+    err_code = sd_power_dcdc_mode_set(NRF_POWER_DCDC_ENABLE);
+    APP_ERROR_CHECK(err_code);
+
     gap_params_init();
     gatt_init();
     services_init();
@@ -645,17 +652,20 @@ int main(void)
     // Enter main loop.
     for (;;)
     {
-        /*
-        * Clear FPU exceptions.
-        * Without this step, the FPU interrupt is marked as pending,
-        * preventing system from sleeping.
-        */
-        uint32_t fpscr = __get_FPSCR();
-        __set_FPSCR(fpscr & ~0x9Fu);
-        __DMB();
-        NVIC_ClearPendingIRQ(FPU_IRQn);
+        if (!NRF_LOG_PROCESS())
+        {
+            /*
+            * Clear FPU exceptions.
+            * Without this step, the FPU interrupt is marked as pending,
+            * preventing system from sleeping.
+            */
+            uint32_t fpscr = __get_FPSCR();
+            __set_FPSCR(fpscr & ~0x9Fu);
+            __DMB();
+            NVIC_ClearPendingIRQ(FPU_IRQn);
 
-        sd_app_evt_wait(); // Go to sleep, wait to be woken up
+            sd_app_evt_wait(); // Go to sleep, wait to be woken up
+        }
     }
 }
 
